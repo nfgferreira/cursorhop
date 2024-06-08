@@ -34,10 +34,7 @@ function activate(context) {
 			bottom_line = visible_bottom_position.line;
 			middle_line = Math.trunc(first_line + (bottom_line - first_line) / 2);
 			if (cursor_offset != 0) {
-				vscode.commands.executeCommand('cursorMove', {to: "left",
-					by: "character",
-					value: cursor_offset,
-					select:select});
+				vscode.commands.executeCommand('cursorHome');
 				return;
 			}
 			if (bottom_line - first_line < 5) {
