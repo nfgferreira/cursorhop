@@ -12,7 +12,7 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "cursorhop" is now active!');
+	console.log('CursorHop is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -33,7 +33,6 @@ function activate(context) {
         down(true);
 	});
 
-
 	context.subscriptions.push(uphop);
 	context.subscriptions.push(uphopSelect);
 	context.subscriptions.push(downhop);
@@ -41,10 +40,6 @@ function activate(context) {
 }
 
 function up (select) {
-	// The code you place here will be executed every time your command is executed
-
-	// Display a message box to the user
-//		vscode.window.showInformationMessage('Hello World from CursorHop!');
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
 		cursor_position  = editor.selection.active;
@@ -70,7 +65,6 @@ function up (select) {
 														  by: "line",
 														  value: cursor_line - middle_line,
 														  select:select});
-//				vscode.commands.executeCommand('cursorMove', {to: 'viewPortCenter'});
 			console.log('Executou1', cursor_line, middle_line, cursor_offset);
 		}
 		else if (cursor_line > first_line + 5) {
@@ -78,17 +72,12 @@ function up (select) {
 														  by: "line",
 														  value: cursor_line - first_line - 5,
 														  select:select});
-//				vscode.commands.executeCommand('cursorMove', {to: 'viewPortTop'});
 			console.log('Executou2', cursor_line, first_line, cursor_offset);
 		}
 	}
 }
 
 function down (select) {
-	// The code you place here will be executed every time your command is executed
-
-	// Display a message box to the user
-//		vscode.window.showInformationMessage('Hello World from CursorHop!');
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
 		cursor_position  = editor.selection.active;
@@ -115,8 +104,6 @@ function down (select) {
 														  by: "line",
 														  value: middle_line - cursor_line,
 														  select:select});
-//				vscode.commands.executeCommand('cursorMove', {to: 'viewPortCenter'});
-
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
 			else
@@ -128,8 +115,6 @@ function down (select) {
 														  by: "line",
 														  value: bottom_line - cursor_line - 1,
 														  select:select});
-			//				vscode.commands.executeCommand('cursorMove', {to: 'viewPortTop'});
-
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
 			else
@@ -137,7 +122,6 @@ function down (select) {
 		}
 	}
 }
-
 
 // This method is called when your extension is deactivated
 function deactivate() {}
