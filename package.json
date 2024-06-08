@@ -27,8 +27,29 @@
     },{
       "command": "cursorhop.uphopSelect",
       "title": "CursupHop Up Select"
-    }
-  ]
+    }],
+    "keybindings": [
+      {
+        "command": "cursorhop.uphop",
+        "key": "home",
+        "when": "textInputFocus"
+      },
+      {
+        "command": "cursorhop.downhop",
+        "key": "end",
+        "when": "textInputFocus"
+      },
+      {
+        "command": "cursorhop.uphopSelect",
+        "key": "shift+home",
+        "when": "textInputFocus"
+      },
+      {
+        "command": "cursorhop.downhopSelect",
+        "key": "shift+end",
+        "when": "textInputFocus"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",

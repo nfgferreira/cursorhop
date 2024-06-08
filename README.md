@@ -11,7 +11,7 @@ The "Cursor Up" function works this way:
 
  The "Cursor Down" works similarly. The functions "Cursor Up Select" and "Cursor Down Select" work the same except the whole area traversed by the cursor is selected.
 
- The following keybindings are recommended. They replace the stock cursorHome, cursorEnd, cursorHomeSelect and cursorEndSelect.
+ The following keybindings are implemented. They replace the stock cursorHome, cursorEnd, cursorHomeSelect and cursorEndSelect.
 
  |Command | Keybinding | When |
  |--------|------------|------|
