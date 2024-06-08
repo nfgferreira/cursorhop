@@ -22,6 +22,10 @@ The "Cursor Up" function works this way:
 
 ## Release Notes
 
+### 0.0.2
+
+Implementing keybindings.
+
 ### 0.0.1
 
 Initial release
