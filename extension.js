@@ -33,6 +33,13 @@ function activate(context) {
 			first_line = visible_top_position.line;
 			bottom_line = visible_bottom_position.line;
 			middle_line = Math.trunc(first_line + (bottom_line - first_line) / 2);
+			if (cursor_offset != 0) {
+				vscode.commands.executeCommand('cursorMove', {to: "left",
+					by: "character",
+					value: cursor_offset,
+					select:select});
+				return;
+			}
 			if (bottom_line - first_line < 5) {
 				return;
 			}
@@ -72,6 +79,14 @@ function activate(context) {
 			first_line = visible_top_position.line;
 			bottom_line = visible_bottom_position.line;
 			middle_line = Math.trunc(first_line + (bottom_line - first_line) / 2);
+			last_char_offset = editor.document.lineAt(cursor_position).range.end.character
+			if (last_char_offset != cursor_offset) {
+				vscode.commands.executeCommand('cursorMove', {to: "right",
+					by: "character",
+					value: last_char_offset - cursor_offset,
+					select:select});
+				return;
+			}
 			if (bottom_line - first_line < 5) {
 				return;
 			}
