@@ -25,6 +25,7 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			cursor_position  = editor.selection.active;
+			select = !editor.selection.isEmpty;
 			visible_top_position = editor.visibleRanges[0].start;
 			visible_bottom_position = editor.visibleRanges[0].end;
 			cursor_offset = cursor_position.character;
@@ -36,12 +37,18 @@ function activate(context) {
 				return;
 			}
 			if (cursor_line > middle_line) {
-				vscode.commands.executeCommand('cursorMove', {to: "up", by: "line", value: cursor_line - middle_line});
+				vscode.commands.executeCommand('cursorMove', {to: "up",
+															  by: "line",
+															  value: cursor_line - middle_line,
+															  select:select});
 //				vscode.commands.executeCommand('cursorMove', {to: 'viewPortCenter'});
 				console.log('Executou1', cursor_line, middle_line, cursor_offset);
 			}
 			else if (cursor_line > first_line + 5) {
-				vscode.commands.executeCommand('cursorMove', {to: "up", by: "line", value: cursor_line - first_line - 5});
+				vscode.commands.executeCommand('cursorMove', {to: "up",
+															  by: "line",
+															  value: cursor_line - first_line - 5,
+															  select:select});
 //				vscode.commands.executeCommand('cursorMove', {to: 'viewPortTop'});
 				console.log('Executou2', cursor_line, first_line, cursor_offset);
 			}
@@ -57,6 +64,7 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			cursor_position  = editor.selection.active;
+			select = !editor.selection.isEmpty;
 			visible_top_position = editor.visibleRanges[0].start;
 			visible_bottom_position = editor.visibleRanges[0].end;
 			cursor_offset = cursor_position.character;
@@ -68,12 +76,18 @@ function activate(context) {
 				return;
 			}
 			if (cursor_line < middle_line) {
-				vscode.commands.executeCommand('cursorMove', {to: "down", by: "line", value: middle_line - cursor_line});
+				vscode.commands.executeCommand('cursorMove', {to: "down",
+															  by: "line",
+															  value: middle_line - cursor_line,
+															  select:select});
 //				vscode.commands.executeCommand('cursorMove', {to: 'viewPortCenter'});
 				console.log('Executou2', cursor_line, middle_line);
 			}
 			else if (cursor_line < bottom_line - 1) {
-				vscode.commands.executeCommand('cursorMove', {to: "down", by: "line", value: bottom_line - cursor_line - 1});
+				vscode.commands.executeCommand('cursorMove', {to: "down",
+															  by: "line",
+															  value: bottom_line - cursor_line - 1,
+															  select:select});
 //				vscode.commands.executeCommand('cursorMove', {to: 'viewPortTop'});
 				console.log('Executou4', bottom_line, cursor_line);
 			}
