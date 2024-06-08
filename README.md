@@ -1,65 +1,29 @@
-# cursorhop README
-
-This is the README for your extension "cursorhop". After writing up a brief description, we recommend including the following sections.
+# CursorHop Home/End extender
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+CursorHop comes with four functions that extend the way that the stock Home and End keys work in VS Code.
 
-For example if there is an image subfolder under your extension project workspace:
+The "Cursor Up" function works this way:
+ - If the cursor is not at the beginning of the line, the VS Code function _cursorHome_ is called. That leads the cursor to the line's farthest non-blank character at its left if there is one. If all the characters at the left of the cursor are non-blank, the cursor goes to the beginning of the line. That is what you get from the VS Code when you are not using the extension.
+ - If the cursor is at the beginning of a line below the middle of the window, the cursor goes to the beginning of the middle line.
+ - If the cursor is at the beginning of the middle line or on any line above that and below the 5th line, it goes to the beginning of the 5th line.
 
-\!\[feature X\]\(images/feature-x.png\)
+ The "Cursor Down" works similarly. The functions "Cursor Up Select" and "Cursor Down Select" work the same except the whole area traversed by the cursor is selected.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+ The following keybindings are recommended. They replace the stock cursorHome, cursorEnd, cursorHomeSelect and cursorEndSelect.
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+ |Command | Keybinding | When |
+ |--------|------------|------|
+ | cursorhop.uphop | Home | textInputFocus |
+ | cursorhop.downhop | End | textInputFocus |
+ | cursorhop.uphopSelect | Shift + Home | textInputFocus |
+ | cursorhop.downhopSelect | Shift + End | textInputFocus |
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
+Initial release
 
-Initial release of ...
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
