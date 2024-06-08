@@ -18,6 +18,12 @@
     },{
       "command": "cursorhop.downhop",
       "title": "Hello World Down"
+    },{
+      "command": "cursorhop.downhopSelect",
+      "title": "Hello World Down Select"
+    },{
+      "command": "cursorhop.uphopSelect",
+      "title": "Hello World Up Select"
     }
   ]
   },
