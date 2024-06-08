@@ -3,6 +3,7 @@
   "displayName": "CursorHop",
   "description": "Extends Home and End stock functionality by allowing the cursor to move to beginning, middle and end of the window.",
   "icon": "hop.png",
+  "repository": "https://github.com/nfgferreira/cursorhop",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.90.0"
