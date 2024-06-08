@@ -116,15 +116,24 @@ function down (select) {
 														  value: middle_line - cursor_line,
 														  select:select});
 //				vscode.commands.executeCommand('cursorMove', {to: 'viewPortCenter'});
-			console.log('Executou2', cursor_line, middle_line);
+
+			if (select)
+				vscode.commands.executeCommand('cursorEndSelect');
+			else
+				vscode.commands.executeCommand('cursorEnd');
 		}
+
 		else if (cursor_line < bottom_line - 1) {
 			vscode.commands.executeCommand('cursorMove', {to: "down",
 														  by: "line",
 														  value: bottom_line - cursor_line - 1,
 														  select:select});
-//				vscode.commands.executeCommand('cursorMove', {to: 'viewPortTop'});
-			console.log('Executou4', bottom_line, cursor_line);
+			//				vscode.commands.executeCommand('cursorMove', {to: 'viewPortTop'});
+
+			if (select)
+				vscode.commands.executeCommand('cursorEndSelect');
+			else
+				vscode.commands.executeCommand('cursorEnd');
 		}
 	}
 }
