@@ -101,10 +101,10 @@ function down (select) {
 		middle_line = Math.trunc(first_line + (bottom_line - first_line) / 2);
 		last_char_offset = editor.document.lineAt(cursor_position).range.end.character
 		if (last_char_offset != cursor_offset) {
-			vscode.commands.executeCommand('cursorMove', {to: "right",
-				by: "character",
-				value: last_char_offset - cursor_offset,
-				select:select});
+			if (select)
+				vscode.commands.executeCommand('cursorEndSelect');
+			else
+			    vscode.commands.executeCommand('cursorEnd');
 			return;
 		}
 		if (bottom_line - first_line < 5) {
