@@ -5,12 +5,12 @@
   "icon": "hop.png",
   "repository": "https://github.com/nfgferreira/cursorhop",
   "publisher": "nfgferreira",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.90.0"
   },
   "categories": [
-    "Other"
+    "Keymaps"
   ],
   "activationEvents": [],
   "main": "./extension.js",
