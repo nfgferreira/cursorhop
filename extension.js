@@ -65,14 +65,12 @@ function up (select) {
 														  by: "line",
 														  value: cursor_line - middle_line,
 														  select:select});
-			console.log('Executou1', cursor_line, middle_line, cursor_offset);
 		}
 		else if (cursor_line > first_line + 5) {
 			vscode.commands.executeCommand('cursorMove', {to: "up",
 														  by: "line",
 														  value: cursor_line - first_line - 5,
 														  select:select});
-			console.log('Executou2', cursor_line, first_line, cursor_offset);
 		}
 	}
 }
