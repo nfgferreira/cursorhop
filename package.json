@@ -5,7 +5,7 @@
   "icon": "hop.png",
   "repository": "https://github.com/nfgferreira/cursorhop",
   "publisher": "nfgferreira",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -26,7 +26,16 @@
       "title": "CursorHop Down Select"
     },{
       "command": "cursorhop.uphopSelect",
-      "title": "CursupHop Up Select"
+      "title": "CursurHop Up Select"
+    },{
+      "command": "cursorhop.cursorAtTop",
+      "title": "CursurHop Cursor position on top"
+    },{
+      "command": "cursorhop.cursorAtBottom",
+      "title": "CursurHop Cursor position at bottom"
+    },{
+      "command": "cursorhop.cursorInCenter",
+      "title": "CursurHop Cursor position in Center"
     }],
     "keybindings": [
       {
@@ -47,6 +56,21 @@
       {
         "command": "cursorhop.downhopSelect",
         "key": "shift+end",
+        "when": "textInputFocus"
+      },
+      {
+        "command": "cursorhop.cursorAtTop",
+        "key": "ctrl+shift+/ t",
+        "when": "textInputFocus"
+      },
+      {
+        "command": "cursorhop.cursorAtBottom",
+        "key": "ctrl+shift+/ b",
+        "when": "textInputFocus"
+      },
+      {
+        "command": "cursorhop.cursorInCenter",
+        "key": "ctrl+shift+/ z",
         "when": "textInputFocus"
       }
     ]

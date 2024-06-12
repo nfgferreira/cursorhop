@@ -33,43 +33,77 @@ function activate(context) {
         down(true);
 	});
 
+	const cursorAtTop = vscode.commands.registerCommand('cursorhop.cursorAtTop', function () {
+		const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            editor.revealRange(new vscode.Range(editor.selection.active, editor.selection.active),
+                vscode.TextEditorRevealType.AtTop);
+        }
+	});
+
+	const cursorAtBottom = vscode.commands.registerCommand('cursorhop.cursorAtBottom', function () {
+		const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            length = editor.visibleRanges[0].end.line - editor.visibleRanges[0].start.line;
+			newTopLine = editor.selection.active.line - length + 5;
+			if (newTopLine < 0) newTopLine = 0;
+            start = editor.document.validatePosition(
+                new vscode.Position(newTopLine, editor.selection.active.character));
+            editor.revealRange(new vscode.Range(start, editor.selection.active));
+        }
+	});
+
+	const cursorInCenter = vscode.commands.registerCommand('cursorhop.cursorInCenter', function () {
+		const editor = vscode.window.activeTextEditor;
+        if (editor) {
+			range = editor.selection.active;
+			start = editor.document.validatePosition(
+                new vscode.Position(range.line + 3, editor.selection.active.character));
+			editor.revealRange(new vscode.Range(start, start),
+                vscode.TextEditorRevealType.InCenter);
+        }
+	});
+
 	context.subscriptions.push(uphop);
 	context.subscriptions.push(uphopSelect);
 	context.subscriptions.push(downhop);
 	context.subscriptions.push(downhopSelect);
+	context.subscriptions.push(cursorAtTop);
+	context.subscriptions.push(cursorAtBottom);
+	context.subscriptions.push(cursorInCenter);
 }
 
 function up (select) {
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
-		cursor_position  = editor.selection.active;
-		visible_top_position = editor.visibleRanges[0].start;
-		visible_bottom_position = editor.visibleRanges[0].end;
-		cursor_offset = cursor_position.character;
-		cursor_line = cursor_position.line;
-		first_line = visible_top_position.line;
-		bottom_line = visible_bottom_position.line;
-		middle_line = Math.trunc(first_line + (bottom_line - first_line) / 2);
-		if (cursor_offset != 0) {
+		position  = editor.selection.active;
+		topPosition = editor.visibleRanges[0].start;
+		bottomPosition = editor.visibleRanges[0].end;
+		offset = position.character;
+		line = position.line;
+		firstLine = topPosition.line;
+		bottomLine = bottomPosition.line;
+		middleLine = Math.trunc(firstLine + (bottomLine - firstLine) / 2);
+		if (offset != 0) {
 			if (select)
 				vscode.commands.executeCommand('cursorHomeSelect');
 			else
 			    vscode.commands.executeCommand('cursorHome');
 			return;
 		}
-		if (bottom_line - first_line < 5) {
+		if (bottomLine - firstLine < 5) {
 			return;
 		}
-		if (cursor_line > middle_line) {
+		if (line > middleLine) {
 			vscode.commands.executeCommand('cursorMove', {to: "up",
 														  by: "line",
-														  value: cursor_line - middle_line,
+														  value: line - middleLine,
 														  select:select});
 		}
-		else if (cursor_line > first_line + 5) {
+		else if (line > firstLine + 5) {
 			vscode.commands.executeCommand('cursorMove', {to: "up",
 														  by: "line",
-														  value: cursor_line - first_line - 5,
+														  value: line - firstLine - 5,
 														  select:select});
 		}
 	}
@@ -78,29 +112,29 @@ function up (select) {
 function down (select) {
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
-		cursor_position  = editor.selection.active;
-		visible_top_position = editor.visibleRanges[0].start;
-		visible_bottom_position = editor.visibleRanges[0].end;
-		cursor_offset = cursor_position.character;
-		cursor_line = cursor_position.line;
-		first_line = visible_top_position.line;
-		bottom_line = visible_bottom_position.line;
-		middle_line = Math.trunc(first_line + (bottom_line - first_line) / 2);
-		last_char_offset = editor.document.lineAt(cursor_position).range.end.character
-		if (last_char_offset != cursor_offset) {
+		position  = editor.selection.active;
+		topPosition = editor.visibleRanges[0].start;
+		bottomPosition = editor.visibleRanges[0].end;
+		offset = position.character;
+		line = position.line;
+		firstLine = topPosition.line;
+		bottomLine = bottomPosition.line;
+		middleLine = Math.trunc(firstLine + (bottomLine - firstLine) / 2);
+		lastCharOffset = editor.document.lineAt(position).range.end.character
+		if (lastCharOffset != offset) {
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
 			else
 			    vscode.commands.executeCommand('cursorEnd');
 			return;
 		}
-		if (bottom_line - first_line < 5) {
+		if (bottomLine - firstLine < 5) {
 			return;
 		}
-		if (cursor_line < middle_line) {
+		if (line < middleLine) {
 			vscode.commands.executeCommand('cursorMove', {to: "down",
 														  by: "line",
-														  value: middle_line - cursor_line,
+														  value: middleLine - line,
 														  select:select});
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
@@ -108,10 +142,10 @@ function down (select) {
 				vscode.commands.executeCommand('cursorEnd');
 		}
 
-		else if (cursor_line < bottom_line - 1) {
+		else if (line < bottomLine - 1) {
 			vscode.commands.executeCommand('cursorMove', {to: "down",
 														  by: "line",
-														  value: bottom_line - cursor_line - 1,
+														  value: bottomLine - line - 1,
 														  select:select});
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
