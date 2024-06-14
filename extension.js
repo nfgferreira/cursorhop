@@ -36,43 +36,54 @@ function activate(context) {
 	const cursorAtTop = vscode.commands.registerCommand('cursorhop.cursorAtTop', function () {
 		const editor = vscode.window.activeTextEditor;
         if (editor) {
-            editor.revealRange(new vscode.Range(editor.selection.active, editor.selection.active),
-                vscode.TextEditorRevealType.AtTop);
-			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
 			cursor = editor.selection.active;
-			editor.revealRange(new vscode.Range(cursor, cursor),
-                vscode.TextEditorRevealType.Default);
+			vscode.commands.executeCommand('revealLine', {at: 'top', lineNumber: cursor.line});
+
+//			editor.revealRange(new vscode.Range(editor.selection.active, editor.selection.active),
+//                vscode.TextEditorRevealType.AtTop);
+//			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
+//			cursor = editor.selection.active;
+//			editor.revealRange(new vscode.Range(cursor, cursor),
+//                vscode.TextEditorRevealType.Default);
         }
 	});
 
 	const cursorAtBottom = vscode.commands.registerCommand('cursorhop.cursorAtBottom', function () {
 		const editor = vscode.window.activeTextEditor;
         if (editor) {
-            length = editor.visibleRanges[0].end.line - editor.visibleRanges[0].start.line;
-			newTopLine = editor.selection.active.line - length + 5;
-			if (newTopLine < 0) newTopLine = 0;
-            start = editor.document.validatePosition(
-                new vscode.Position(newTopLine, editor.selection.active.character));
-            editor.revealRange(new vscode.Range(start, editor.selection.active));
-			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
 			cursor = editor.selection.active;
-			editor.revealRange(new vscode.Range(cursor, cursor),
-                vscode.TextEditorRevealType.Default);
+			vscode.commands.executeCommand('revealLine', {at: 'bottom', lineNumber: cursor.line});
+
+
+//            length = editor.visibleRanges[0].end.line - editor.visibleRanges[0].start.line;
+//			newTopLine = editor.selection.active.line - length + 5;
+//			if (newTopLine < 0) newTopLine = 0;
+//            start = editor.document.validatePosition(
+//                new vscode.Position(newTopLine, editor.selection.active.character));
+//            editor.revealRange(new vscode.Range(start, editor.selection.active));
+//			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
+//			cursor = editor.selection.active;
+//			editor.revealRange(new vscode.Range(cursor, cursor),
+//                vscode.TextEditorRevealType.Default);
         }
 	});
 
 	const cursorInCenter = vscode.commands.registerCommand('cursorhop.cursorInCenter', function () {
 		const editor = vscode.window.activeTextEditor;
         if (editor) {
-			range = editor.selection.active;
-			start = editor.document.validatePosition(
-                new vscode.Position(range.line + 3, editor.selection.active.character));
-			editor.revealRange(new vscode.Range(start, start),
-                vscode.TextEditorRevealType.InCenter);
-			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
 			cursor = editor.selection.active;
-			editor.revealRange(new vscode.Range(cursor, cursor),
-                vscode.TextEditorRevealType.Default);
+			vscode.commands.executeCommand('revealLine', {at: 'center', lineNumber: cursor.line});
+
+
+//			range = editor.selection.active;
+//			start = editor.document.validatePosition(
+//                new vscode.Position(range.line + 3, editor.selection.active.character));
+//			editor.revealRange(new vscode.Range(start, start),
+//                vscode.TextEditorRevealType.InCenter);
+//			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
+//			cursor = editor.selection.active;
+//			editor.revealRange(new vscode.Range(cursor, cursor),
+//                vscode.TextEditorRevealType.Default);
         }
 	});
 
