@@ -35,7 +35,7 @@
       "title": "CursurHop Cursor position at bottom"
     },{
       "command": "cursorhop.cursorInCenter",
-      "title": "CursurHop Cursor position in Center"
+      "title": "CursurHop Cursor position in center"
     }],
     "keybindings": [
       {
