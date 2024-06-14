@@ -38,6 +38,10 @@ function activate(context) {
         if (editor) {
             editor.revealRange(new vscode.Range(editor.selection.active, editor.selection.active),
                 vscode.TextEditorRevealType.AtTop);
+			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
+			cursor = editor.selection.active;
+			editor.revealRange(new vscode.Range(range, range),
+                vscode.TextEditorRevealType.Default);
         }
 	});
 
@@ -50,6 +54,10 @@ function activate(context) {
             start = editor.document.validatePosition(
                 new vscode.Position(newTopLine, editor.selection.active.character));
             editor.revealRange(new vscode.Range(start, editor.selection.active));
+			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
+			cursor = editor.selection.active;
+			editor.revealRange(new vscode.Range(range, range),
+                vscode.TextEditorRevealType.Default);
         }
 	});
 
@@ -61,6 +69,10 @@ function activate(context) {
                 new vscode.Position(range.line + 3, editor.selection.active.character));
 			editor.revealRange(new vscode.Range(start, start),
                 vscode.TextEditorRevealType.InCenter);
+			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
+			cursor = editor.selection.active;
+			editor.revealRange(new vscode.Range(range, range),
+                vscode.TextEditorRevealType.Default);
         }
 	});
 
