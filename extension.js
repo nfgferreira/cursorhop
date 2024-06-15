@@ -51,6 +51,7 @@ function activate(context) {
 	const cursorAtBottom = vscode.commands.registerCommand('cursorhop.cursorAtBottom', function () {
 		const editor = vscode.window.activeTextEditor;
         if (editor) {
+			vr = editor.visibleRanges;
 			cursor = editor.selection.active;
 			vscode.commands.executeCommand('revealLine', {at: 'bottom', lineNumber: cursor.line});
 
@@ -100,13 +101,7 @@ function up (select) {
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
 		position  = editor.selection.active;
-		topPosition = editor.visibleRanges[0].start;
-		bottomPosition = editor.visibleRanges[0].end;
 		offset = position.character;
-		line = position.line;
-		firstLine = topPosition.line;
-		bottomLine = bottomPosition.line;
-		middleLine = Math.trunc(firstLine + (bottomLine - firstLine) / 2);
 		if (offset != 0) {
 			if (select)
 				vscode.commands.executeCommand('cursorHomeSelect');
@@ -114,19 +109,28 @@ function up (select) {
 			    vscode.commands.executeCommand('cursorHome');
 			return;
 		}
-		if (bottomLine - firstLine < 5) {
+
+		visibleRanges = editor.visibleRanges;
+		visibleLines = calcVisibleLines(visibleRanges);
+
+		if (visibleLines.length < 5) {
 			return;
 		}
-		if (line > middleLine) {
+
+		line = position.line;
+		middleLineIndex = Math.trunc(visibleLines.length / 2);
+		currentLineIndex = getCurrentLineIndex(line, visibleLines);
+
+		if (currentLineIndex > middleLineIndex) {
 			vscode.commands.executeCommand('cursorMove', {to: "up",
 														  by: "line",
-														  value: line - middleLine,
+														  value: visibleLines[currentLineIndex] - visibleLines[middleLineIndex],
 														  select:select});
 		}
-		else if (line > firstLine + 5) {
+		else if (currentLineIndex > 5) {
 			vscode.commands.executeCommand('cursorMove', {to: "up",
 														  by: "line",
-														  value: line - firstLine - 5,
+														  value: visibleLines[currentLineIndex - 5] - visibleLines[0],
 														  select:select});
 		}
 	}
@@ -136,13 +140,7 @@ function down (select) {
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
 		position  = editor.selection.active;
-		topPosition = editor.visibleRanges[0].start;
-		bottomPosition = editor.visibleRanges[0].end;
 		offset = position.character;
-		line = position.line;
-		firstLine = topPosition.line;
-		bottomLine = bottomPosition.line;
-		middleLine = Math.trunc(firstLine + (bottomLine - firstLine) / 2);
 		lastCharOffset = editor.document.lineAt(position).range.end.character
 		if (lastCharOffset != offset) {
 			if (select)
@@ -151,13 +149,22 @@ function down (select) {
 			    vscode.commands.executeCommand('cursorEnd');
 			return;
 		}
-		if (bottomLine - firstLine < 5) {
+
+		visibleRanges = editor.visibleRanges;
+		visibleLines = calcVisibleLines(visibleRanges);
+
+		if (visibleLines.length < 5) {
 			return;
 		}
-		if (line < middleLine) {
+
+		line = position.line;
+		middleLineIndex = Math.trunc(visibleLines.length / 2);
+		currentLineIndex = getCurrentLineIndex(line, visibleLines);
+
+		if (currentLineIndex < middleLineIndex) {
 			vscode.commands.executeCommand('cursorMove', {to: "down",
 														  by: "line",
-														  value: middleLine - line,
+														  value: visibleLines[middleLineIndex] - visibleLines[currentLineIndex],
 														  select:select});
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
@@ -165,10 +172,10 @@ function down (select) {
 				vscode.commands.executeCommand('cursorEnd');
 		}
 
-		else if (line < bottomLine - 1) {
+		else if (currentLineIndex < visibleLines.length - 2) {
 			vscode.commands.executeCommand('cursorMove', {to: "down",
 														  by: "line",
-														  value: bottomLine - line - 1,
+														  value: visibleLines[visibleLines.length - 2] - visibleLines[currentLineIndex],
 														  select:select});
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
@@ -176,6 +183,22 @@ function down (select) {
 				vscode.commands.executeCommand('cursorEnd');
 		}
 	}
+}
+
+function calcVisibleLines (visibleRanges) {
+	var visibleLines = [];
+	for (var i = 0; i < visibleRanges.length; i++) {
+		for (var line = visibleRanges[i].start.line; line <= visibleRanges[i].end.line; line++)
+			visibleLines.push(line);
+	}
+	return visibleLines;
+}
+
+function getCurrentLineIndex(line, visibleLines) {
+	for (var i = 0; i < visibleLines.length; i++)
+		if (visibleLines[i] == line)
+			return i;
+	return 0;
 }
 
 // This method is called when your extension is deactivated
