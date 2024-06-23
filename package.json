@@ -5,7 +5,7 @@
   "icon": "hop.png",
   "repository": "https://github.com/nfgferreira/cursorhop",
   "publisher": "nfgferreira",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.90.0"
   },

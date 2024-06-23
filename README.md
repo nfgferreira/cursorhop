@@ -21,8 +21,8 @@ The following keybindings are implemented. The first 4 keybindings replace the s
  | cursorhop.downhop | End | textInputFocus |
  | cursorhop.uphopSelect | Shift + Home | textInputFocus |
  | cursorhop.downhopSelect | Shift + End | textInputFocus |
- | cursorhop.cursorAtTop | Ctrl + Shift + / | textInputFocus |
- | cursorhop.cursorAtBottom | Ctrl + Shift + b | textInputFocus |
- | cursorhop.cursorInCenter | Ctrl + Shift + z | textInputFocus |
+ | cursorhop.cursorAtTop | Ctrl + Shift + / t | textInputFocus |
+ | cursorhop.cursorAtBottom | Ctrl + Shift + / b | textInputFocus |
+ | cursorhop.cursorInCenter | Ctrl + Shift + / z | textInputFocus |
 
 

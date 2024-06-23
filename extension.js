@@ -12,7 +12,7 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('CursorHop is now active!');
+	console.log('CursorHop is active.');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -38,13 +38,6 @@ function activate(context) {
         if (editor) {
 			cursor = editor.selection.active;
 			vscode.commands.executeCommand('revealLine', {at: 'top', lineNumber: cursor.line});
-
-//			editor.revealRange(new vscode.Range(editor.selection.active, editor.selection.active),
-//                vscode.TextEditorRevealType.AtTop);
-//			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
-//			cursor = editor.selection.active;
-//			editor.revealRange(new vscode.Range(cursor, cursor),
-//                vscode.TextEditorRevealType.Default);
         }
 	});
 
@@ -54,18 +47,6 @@ function activate(context) {
 			vr = editor.visibleRanges;
 			cursor = editor.selection.active;
 			vscode.commands.executeCommand('revealLine', {at: 'bottom', lineNumber: cursor.line});
-
-
-//            length = editor.visibleRanges[0].end.line - editor.visibleRanges[0].start.line;
-//			newTopLine = editor.selection.active.line - length + 5;
-//			if (newTopLine < 0) newTopLine = 0;
-//            start = editor.document.validatePosition(
-//                new vscode.Position(newTopLine, editor.selection.active.character));
-//            editor.revealRange(new vscode.Range(start, editor.selection.active));
-//			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
-//			cursor = editor.selection.active;
-//			editor.revealRange(new vscode.Range(cursor, cursor),
-//                vscode.TextEditorRevealType.Default);
         }
 	});
 
@@ -74,17 +55,6 @@ function activate(context) {
         if (editor) {
 			cursor = editor.selection.active;
 			vscode.commands.executeCommand('revealLine', {at: 'center', lineNumber: cursor.line});
-
-
-//			range = editor.selection.active;
-//			start = editor.document.validatePosition(
-//                new vscode.Position(range.line + 3, editor.selection.active.character));
-//			editor.revealRange(new vscode.Range(start, start),
-//                vscode.TextEditorRevealType.InCenter);
-//			// Make sure xthe cursor is visible (that may not be the case if we have a wrapped line or code folding)
-//			cursor = editor.selection.active;
-//			editor.revealRange(new vscode.Range(cursor, cursor),
-//                vscode.TextEditorRevealType.Default);
         }
 	});
 
