@@ -69,6 +69,9 @@ function activate(context) {
 
 function up (select) {
 	const editor = vscode.window.activeTextEditor;
+	const editorConfig = vscode.workspace.getConfiguration('editor')
+	const maxLineCount = 5;//editorConfig.stickyScroll.maxLineCount;
+
 	if (editor) {
 		position  = editor.selection.active;
 		offset = position.character;
@@ -83,7 +86,7 @@ function up (select) {
 		visibleRanges = editor.visibleRanges;
 		visibleLines = calcVisibleLines(visibleRanges);
 
-		if (visibleLines.length < 5) {
+		if (visibleLines.length < maxLineCount) {
 			return;
 		}
 
@@ -97,7 +100,7 @@ function up (select) {
 														  value: visibleLines[currentLineIndex] - visibleLines[middleLineIndex],
 														  select:select});
 		}
-		else if (currentLineIndex > 5) {
+		else if (currentLineIndex > maxLineCount) {
 			vscode.commands.executeCommand('cursorMove', {to: "up",
 														  by: "line",
 														  value: visibleLines[currentLineIndex - 5] - visibleLines[0],
@@ -108,6 +111,9 @@ function up (select) {
 
 function down (select) {
 	const editor = vscode.window.activeTextEditor;
+	const editorConfig = vscode.workspace.getConfiguration('editor')
+	const maxLineCount = editorConfig.stickyScroll.maxLineCount + 1;
+
 	if (editor) {
 		position  = editor.selection.active;
 		offset = position.character;
@@ -123,7 +129,7 @@ function down (select) {
 		visibleRanges = editor.visibleRanges;
 		visibleLines = calcVisibleLines(visibleRanges);
 
-		if (visibleLines.length < 5) {
+		if (visibleLines.length < maxLineCount) {
 			return;
 		}
 
@@ -142,10 +148,10 @@ function down (select) {
 				vscode.commands.executeCommand('cursorEnd');
 		}
 
-		else if (currentLineIndex < visibleLines.length - 2) {
+		else if (currentLineIndex < visibleLines.length - maxLineCount) {
 			vscode.commands.executeCommand('cursorMove', {to: "down",
 														  by: "line",
-														  value: visibleLines[visibleLines.length - 2] - visibleLines[currentLineIndex],
+														  value: visibleLines[visibleLines.length - maxLineCount] - visibleLines[currentLineIndex],
 														  select:select});
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
