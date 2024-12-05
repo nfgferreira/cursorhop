@@ -75,7 +75,7 @@ function up (select) {
 	if (editor) {
 		position  = editor.selection.active;
 		offset = position.character;
-		if (offset != 0) {
+		if ((editor.selections.length > 1) || (offset != 0)) {
 			if (select)
 				vscode.commands.executeCommand('cursorHomeSelect');
 			else
@@ -118,7 +118,7 @@ function down (select) {
 		position  = editor.selection.active;
 		offset = position.character;
 		lastCharOffset = editor.document.lineAt(position).range.end.character
-		if (lastCharOffset != offset) {
+		if ((editor.selections.length > 1) || (lastCharOffset != offset)) {
 			if (select)
 				vscode.commands.executeCommand('cursorEndSelect');
 			else
